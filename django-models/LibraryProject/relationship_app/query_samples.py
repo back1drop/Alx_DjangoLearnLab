@@ -1,16 +1,15 @@
 from .models import Book, Author, Library
 
-
-all_books = Book.objects.all()
-
+# Query all books by a specific author
 def books_by_author(author):
     return Book.objects.filter(author=author)
 
-def get_book_by_title(title):
-    return Book.objects.get(title=title)
+# List all books in a specific library
+def books_in_library(library_name):
+    library = Library.objects.get(name=library_name)
+    return library.books.all()
 
-def libraries_with_book(book):
-    return Library.objects.filter(books=book)
-
-def books_published_after(year):
-    return Book.objects.filter(publication_year__gt=year)
+# Retrieve the librarian for a library
+def librarian_for_library(library_name):
+    library = Library.objects.get(name=library_name)
+    return library.librarian  # because of OneToOneField
