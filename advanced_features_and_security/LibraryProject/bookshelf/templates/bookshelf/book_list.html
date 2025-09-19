@@ -1,20 +1,23 @@
-<!-- bookshelf/templates/bookshelf/book_list.html -->
-{% extends "base.html" %} {% block content %}
-<h1>Books</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book List</title>
+</head>
+<body>
+    <h1>Search Books</h1>
+    <form method="get" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
 
-<form method="get">
-  {% csrf_token %} {{ form.q.label_tag }} {{ form.q }}
-  <button type="submit">Search</button>
-</form>
-
-<ul>
-  {% for book in books %}
-  <li>
-    {{ book.title|escape }} — {{ book.author|escape }} ({{ book.published_date
-    }})
-  </li>
-  {% empty %}
-  <li>No books found.</li>
-  {% endfor %}
-</ul>
-{% endblock %}
+    <h2>Books</h2>
+    <ul>
+        {% for book in books %}
+            <li>{{ book.title }}</li>
+        {% empty %}
+            <li>No books found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
