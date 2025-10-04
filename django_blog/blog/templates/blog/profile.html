@@ -1,0 +1,21 @@
+{% extends "blog/base.html" %} {% block title %}Profile{% endblock %} {% block
+content %}
+<h2>Your profile</h2>
+
+<div class="profile-display">
+  <p><strong>Username:</strong> {{ user.username }}</p>
+  <p><strong>Email:</strong> {{ user.email }}</p>
+  <p><strong>Bio:</strong> {{ user.profile.bio|default:"No bio set." }}</p>
+  {% if user.profile.profile_pic %}
+  <img src="{{ user.profile.profile_pic.url }}" alt="profile pic" width="150" />
+  {% endif %}
+</div>
+
+<hr />
+
+<h3>Edit profile</h3>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %} {{ u_form.as_p }} {{ p_form.as_p }}
+  <button type="submit">Update profile</button>
+</form>
+{% endblock %}
